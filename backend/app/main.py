@@ -1,0 +1,31 @@
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI(
+    title="PipelineGuard AI API",
+    description="AI-powered underground pipeline corrosion analysis",
+    version="1.0.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/")
+def home():
+    return {
+        "message": "PipelineGuard AI Backend Running",
+        "status": "success"
+    }
+
+@app.get("/api/health")
+def health():
+    return {
+        "backend": "online",
+        "application": "PipelineGuard AI"
+    }
